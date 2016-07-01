@@ -66,7 +66,8 @@ svg {
 .sub-nav-list {
   display: flex;
   margin: 0;
-  overflow: hidden;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .sub-nav-item {
   padding: 0 16px;
@@ -79,9 +80,21 @@ svg {
   border-bottom: 2px solid #d70050;
 }
 .carousel {
-  height: 88px;
   position: relative;
   background: #fff;
+  overflow: hidden;
+}
+.carousel-items {
+  display: flex;
+  transition: .3s;
+}
+.carousel-item {
+  width: 100vw;
+  flex: none;
+}
+.carousel-item img {
+  width: 100%;
+  display: block;
 }
 .carousel-sliders {
   position: absolute;
@@ -97,6 +110,9 @@ svg {
   height: 4px;
   margin: 4px;
   background: rgba(0,0,0,.12);
+}
+.carousel-slider.active {
+  background: #d70050;
 }
 .billboard {
   background: #d70050;
@@ -136,6 +152,9 @@ p {
   margin-right: 4px;
   margin-bottom: 4px;
   width: 24%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 .showcase-small .box:nth-child(4n),
 .showcase-middle .box:nth-child(4n),
@@ -184,6 +203,10 @@ p {
   color: rgba(0, 0, 0, 0.54);
   margin: 4px;
 }
+.box img {
+  width: 100%;
+}
+/*底部工具条*/
 .floating-tools {
   position: fixed;
   bottom: 24px;
