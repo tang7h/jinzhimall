@@ -44,7 +44,6 @@ input, button {
   align-items: center;
 }
 .icon {
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -142,6 +141,9 @@ p {
 }
 .showcase {
   display: flex;
+  padding: 8px 0;
+  margin-bottom: 8px;
+  background: #fff;
 }
 .showcase-roll {
   overflow: scroll;
@@ -151,8 +153,8 @@ p {
 .box {
   background: #fff;
   flex: 1 1 auto;
-  margin-right: 4px;
-  margin-bottom: 4px;
+  /*margin-right: 4px;
+  margin-bottom: 4px;*/
   width: 24%;
   max-width: 50%;
   background-repeat: no-repeat;
@@ -187,10 +189,13 @@ p {
 }
 .showcase-large {
   flex-wrap: wrap;
+  background: none;
+  padding: 0;
 }
 .showcase-large .box {
   width: 48%;
-  /*height: 150px;*/
+  margin-right: 4px;
+  margin-bottom: 4px;
 }
 .showcase-large .box:nth-child(2n) {
   margin-right: 0;
@@ -316,12 +321,14 @@ input {
   padding: 4px 8px;
 }
 /*分类页面*/
-.page.category {
+section.category {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 .category-list {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   margin-right: 1px;
   background: #fff;
 }
@@ -332,9 +339,11 @@ input {
   line-height: 47px;
   background: #fff;
   border-bottom: 1px solid rgba(0,0,0,.04);
+  white-space: nowrap;
+  overflow-x: scroll;
 }
-.content {
-  flex: 1 1 auto;
+.category-content {
+  flex: 1 0 auto;
   flex-wrap: wrap;
   align-self: flex-start;
 }
@@ -349,6 +358,7 @@ input {
   display: flex;
   padding: 8px 0 0 8px;
   height: 80px;
+  position: relative;
 }
 .goods-image {
   flex: 0 0 auto;
@@ -383,4 +393,23 @@ input {
 }
 .goods-price span {
   font-size: .875em;
+}
+.goods-tags {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.goods-tag {
+  font-size: .5rem;
+  color: #fff;
+  padding: 0 2px;
+}
+.goods-tag.best {
+  background: #83c44e;
+}
+.goods-tag.hot {
+  background: #e53935;
+}
+.goods-tag.promote {
+  background: #ffac13;
 }
