@@ -5,6 +5,8 @@ body {
   color: rgba(0,0,0,.87);
   font-size: 16px;
   padding-top: 64px;
+  width: 100vw;
+  overflow-x: hidden;
 }
 ul {
   list-style: none;
@@ -66,22 +68,35 @@ svg {
 .sub-nav-list {
   display: flex;
   margin: 0;
-  overflow: hidden;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .sub-nav-item {
-  padding: 0 16px;
+  padding: 0 8px;
   white-space: nowrap;
   line-height: 32px;
   flex: none;
-  font-size: 14px;
+  font-size: 12px;
 }
 .sub-nav-item.active {
   border-bottom: 2px solid #d70050;
 }
 .carousel {
-  height: 88px;
   position: relative;
   background: #fff;
+  overflow: hidden;
+}
+.carousel-items {
+  display: flex;
+  transition: .3s;
+}
+.carousel-item {
+  width: 100vw;
+  flex: none;
+}
+.carousel-item img {
+  width: 100%;
+  display: block;
 }
 .carousel-sliders {
   position: absolute;
@@ -97,6 +112,9 @@ svg {
   height: 4px;
   margin: 4px;
   background: rgba(0,0,0,.12);
+}
+.carousel-slider.active {
+  background: #d70050;
 }
 .billboard {
   background: #d70050;
@@ -136,6 +154,10 @@ p {
   margin-right: 4px;
   margin-bottom: 4px;
   width: 24%;
+  max-width: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 .showcase-small .box:nth-child(4n),
 .showcase-middle .box:nth-child(4n),
@@ -174,16 +196,32 @@ p {
   margin-right: 0;
 }
 .box .pic {
-  height: 120px;
 }
 .box .info {
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 10px;
   color: rgba(0, 0, 0, 0.54);
   margin: 4px;
 }
+.info .name {
+  max-height: 2.8em;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.info .price-market {
+  color: rgba(0,0,0,.38);
+  text-decoration: line-through;
+}
+.info .price {
+  color: #d70050;
+  font-weight: 700;
+}
+.box img {
+  width: 100%;
+  display: block;
+}
+/*底部工具条*/
 .floating-tools {
   position: fixed;
   bottom: 24px;
@@ -296,23 +334,53 @@ input {
   border-bottom: 1px solid rgba(0,0,0,.04);
 }
 .content {
-  flex: 1 0 auto;
-  display: flex;
+  flex: 1 1 auto;
   flex-wrap: wrap;
   align-self: flex-start;
 }
 .banner {
-  flex: 1 0 100%;
   height: 95px;
   background: #fff;
   margin-bottom: 1px;
 }
 .content-item {
-  flex: 1 0 30%;
-  height: 71px;
   background: #fff;
-  margin: 0 1px 1px 0;
+  overflow: hidden;
+  display: flex;
+  padding: 8px 0 0 8px;
+  height: 80px;
 }
-.content-item:nth-child(3n+1) {
-  margin-right: 0;
+.goods-image {
+  flex: 0 0 auto;
+  width: 55px;
+  display: flex;
+  align-items: center;
+}
+.goods-image img {
+  width: 100%;
+}
+.goods-info {
+  flex: 1 0;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow: hidden;
+  border-bottom: .5px solid rgba(0,0,0,.08);
+  padding-bottom: 8px;
+}
+.goods-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 8px;
+}
+.goods-name {
+  max-height: 3em;
+  overflow: hidden;
+}
+.goods-price {
+  color: #E91E63;
+  font-size: 14px;
+}
+.goods-price span {
+  font-size: .875em;
 }

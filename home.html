@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>今知商城</title>
-  <meta name="viewport" content="width=device-width,user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="stylesheet" href="jinzhimall.css">
@@ -21,7 +21,7 @@
     </section>
     <!-- 搜索 -->
     <div class="search {{search.status}}">
-      <input type="text" placeholder="输入关键字来搜索">
+      <input type="text" id="input-search" placeholder="输入关键字来搜索">
       <div class="mask" ng-click="search.toggle()"></div>
       <div class="keywords">
         <span class="keyword">冬天的大风衣</span>
@@ -37,22 +37,20 @@
     </div>
   </div>
   <section class="sub-nav">
-    <ul class="sub-nav-list" ng-click="pages.turnto('category')">
-      <li class="sub-nav-item active">栏目</li>
-      <li class="sub-nav-item">栏目</li>
-      <li class="sub-nav-item">栏目</li>
-      <li class="sub-nav-item">栏目</li>
-      <li class="sub-nav-item">栏目</li>
+    <ul class="sub-nav-list">
+      <li class="sub-nav-item active1" ng-click="pages.turnto('home')">首页</li>
+      <li ng-repeat="i in categoryList.data" ng-click="pages.turnto(i)" class="sub-nav-item active1">{{i.name}}</li>
     </ul>
   </section>
   <div class="page home" ng-show="pages.currentPage=='home'">
     <section class="carousel">
+      <div class="carousel-items" style="width:{{t.data.ad_home.length*100}}vw;transform:translateX(-{{carousel.current*100}}vw)">
+        <div class="carousel-item" ng-repeat="i in t.data.ad_home">
+          <img ng-src="{{i.ad_img}}" alt="">
+        </div>
+      </div>
       <div class="carousel-sliders">
-        <div class="carousel-slider"></div>
-        <div class="carousel-slider"></div>
-        <div class="carousel-slider"></div>
-        <div class="carousel-slider"></div>
-        <div class="carousel-slider"></div>
+        <div ng-repeat="i in t.data.ad_home" class="carousel-slider {{carousel.isActive($index)}}"></div>
       </div>
     </section>
     <section class="billboard">
@@ -60,75 +58,30 @@
       <p class="billboard-content">通知公告。。。。。。。。。。。。。。。。。。。。。</p>
     </section>
     <section class="showcase showcase-roll">
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
+      <div class="box" ng-repeat="i in t.data.today_life" style="background-image:url({{i.ad_img}})"></div>
     </section>
     <section class="showcase showcase-middle">
-      <div class="box">
-        <div class="pic"></div>
-        <div class="info">
-          <div class="name small">VIVO智能手机 快无边界</div>
+      <div class="box" ng-repeat="i in t.data.ad_new_goods|limitTo:4">
+        <div class="pic">
+          <img ng-src="{{i.ad_img}}" alt="" />
         </div>
-      </div>
-      <div class="box">
-        <div class="pic"></div>
         <div class="info">
-          <div class="name small">BELLE百丽 百变而美丽</div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="pic"></div>
-        <div class="info">
-          <div class="name small">DW优雅石英男表</div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="pic"></div>
-        <div class="info">
-          <div class="name small">Ck炫彩持久唇膏</div>
+          <div class="name small">{{ad_name}}</div>
         </div>
       </div>
     </section>
     <section class="showcase showcase-small">
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
-      <div class="box"></div>
+      <div class="box brand" ng-repeat="i in t.data.brand_list|limitTo:8" style="background-image:url({{i.brand_logo}})"></div>
     </section>
     <section class="showcase showcase-large">
-      <div class="box">
-        <div class="pic"></div>
-        <div class="info">
-          <div class="name">蔻丝简易衣柜塑料现代简约收纳自由组合衣柜</div>
-          <div class="prise">折扣价2488</div>
+      <div class="box" ng-repeat="i in goodsHot">
+        <div class="pic">
+          <img ng-src="http://www.jinzhimall.com/{{i.goods_thumb}}" alt="" />
         </div>
-      </div>
-      <div class="box">
-        <div class="pic"></div>
         <div class="info">
-          <div class="name">蔻丝简易衣柜塑料现代简约收纳自由组合衣柜</div>
-          <div class="prise">折扣价2488</div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="pic"></div>
-        <div class="info">
-          <div class="name">蔻丝简易衣柜塑料现代简约收纳自由组合衣柜</div>
-          <div class="prise">折扣价2488</div>
-        </div>
-      </div>
-      <div class="box">
-        <div class="pic"></div>
-        <div class="info">
-          <div class="name">蔻丝简易衣柜塑料现代简约收纳自由组合衣柜</div>
-          <div class="prise">折扣价2488</div>
+          <div class="name">{{i.goods_name}}</div>
+          <span class="price-market">￥{{i.market_price}}</span>
+          <span class="price">￥{{i.shop_price}}</span>
         </div>
       </div>
     </section>
@@ -136,18 +89,19 @@
   <!-- 商品分类页面 -->
   <div class="page category"  ng-show="pages.currentPage=='category'">
     <div class="category-list">
-      <div class="category-item">衣帽服饰</div>
-      <div class="category-item">家电数码</div>
-      <div class="category-item">运动户外</div>
+      <div ng-repeat="i in categoryListItem.children" ng-click="showCategoryGoods(i.id)" class="category-item">{{i.name}}</div>
     </div>
     <div class="content">
-      <div class="banner"></div>
-      <div class="content-item"></div>
-      <div class="content-item"></div>
-      <div class="content-item"></div>
-      <div class="content-item"></div>
-      <div class="content-item"></div>
-      <div class="content-item"></div>
+      <!-- <div class="banner"></div> -->
+      <div ng-repeat="i in categoryGoods" class="content-item">
+        <div class="goods-image">
+          <img ng-src="http://www.jinzhimall.com/{{i.goods_thumb}}" alt="" />
+        </div>
+        <div class="goods-info">
+          <div class="goods-name">{{i.goods_name}}</div>
+          <div class="goods-price"><span>￥</span>{{i.goods-info}}</div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- 底部工具栏 -->
