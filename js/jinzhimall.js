@@ -1,4 +1,4 @@
-var jinzhimall = angular.module('jinzhimall',[]);
+var jinzhimall = angular.module('jinzhimall',['ngTouch']);
 jinzhimall.controller('jinzhimallCtrl',function($scope,$http,$interval){
   $scope.urls = {
     categoryGoods: 'http://www.jinzhimall.com/app/api/new_goods_api.php',
@@ -35,6 +35,30 @@ jinzhimall.controller('jinzhimallCtrl',function($scope,$http,$interval){
       }else {
         this.current++;
       }
+      this.resetTimer();
+    },
+    runPrev: function(){
+      if(this.current <= 0){
+        this.current=this.number-1;
+      }else {
+        this.current--;
+      }
+      this.resetTimer();
+    },
+    pause: function(){
+      if(angular.isDefined(stop)){
+        $interval.cancel(stop);
+        stop = undefined;
+      }
+    },
+    run: function(){
+      stop = $interval(function () {
+        $scope.carousel.runNext();
+      }, 4000);
+    },
+    resetTimer: function(){
+      this.pause();
+      this.run();
     },
     isActive: function(i){
       if(i==this.current){
@@ -42,9 +66,7 @@ jinzhimall.controller('jinzhimallCtrl',function($scope,$http,$interval){
       }
     }
   }
-  $interval(function () {
-    $scope.carousel.runNext();
-  }, 4000);
+  $scope.carousel.run();
   $scope.search = {
     status: 'off',
     toggle: function(){
